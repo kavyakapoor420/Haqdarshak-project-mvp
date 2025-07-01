@@ -1,0 +1,152 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "../ui/button"
+import { ScrollArea } from "../ui/scroll-area"
+import { Input } from "../ui/input"
+import { Plus, MessageSquare, Search, Trash2, MoreHorizontal, X } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import type { Chat } from  './Page'
+import { cn } from "@/lib/utils"
+
+interface ChatSidebarProps {
+  chats: Chat[]
+  currentChatId: string
+  onChatSelect: (chatId: string) => void
+  onNewChat: () => void
+  onDeleteChat: (chatId: string) => void
+  isOpen: boolean
+  onToggle: () => void
+}
+
+export function ChatSidebar({
+  chats,
+  currentChatId,
+  onChatSelect,
+  onNewChat,
+  onDeleteChat,
+  isOpen,
+  onToggle,
+}: ChatSidebarProps) {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredChats = chats.filter((chat) => chat.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
+  const formatDate = (date: Date) => {
+    const now = new Date()
+    const diff = now.getTime() - date.getTime()
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+
+    if (days === 0) return "Today"
+    if (days === 1) return "Yesterday"
+    if (days < 7) return `${days} days ago`
+    return date.toLocaleDateString()
+  }
+
+  return (
+    <>
+      {/* Mobile overlay */}
+      {isOpen && <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden" onClick={onToggle} />}
+
+      {/* Sidebar */}
+      <div
+        className={cn(
+          "fixed lg:relative inset-y-0 left-0 z-50 w-80 bg-white/80 backdrop-blur-xl border-r border-orange-100 flex flex-col transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+        )}
+      >
+        {/* Header */}
+        <div className="p-4 border-b border-orange-100 bg-gradient-to-r from-orange-500 to-amber-500">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white">AI Assistant</h2>
+            <Button variant="ghost" size="icon" onClick={onToggle} className="lg:hidden text-white hover:bg-white/20">
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+
+          <Button
+            onClick={onNewChat}
+            className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 transition-all duration-200"
+            variant="outline"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            New Chat
+          </Button>
+        </div>
+
+        {/* Search */}
+        <div className="p-4 border-b border-orange-100">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              placeholder="Search chats..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-orange-50/50 border-orange-200 focus:border-orange-300 focus:ring-orange-200"
+            />
+          </div>
+        </div>
+
+        {/* Chat List */}
+        <ScrollArea className="flex-1">
+          <div className="p-2">
+            {filteredChats.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                <p>No chats found</p>
+              </div>
+            ) : (
+              filteredChats.map((chat) => (
+                <div
+                  key={chat.id}
+                  className={cn(
+                    "group relative p-3 rounded-lg cursor-pointer transition-all duration-200 mb-2",
+                    currentChatId === chat.id
+                      ? "bg-gradient-to-r from-orange-100 to-amber-100 border border-orange-200 shadow-sm"
+                      : "hover:bg-orange-50/50",
+                  )}
+                  onClick={() => onChatSelect(chat.id)}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-gray-900 truncate text-sm">{chat.title}</h3>
+                      <p className="text-xs text-gray-500 mt-1">{formatDate(chat.updatedAt)}</p>
+                      <p className="text-xs text-gray-400 mt-1 truncate">
+                        {chat.messages[chat.messages.length - 1]?.content}
+                      </p>
+                    </div>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 text-gray-400 hover:text-gray-600"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onDeleteChat(chat.id)
+                          }}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </ScrollArea>
+      </div>
+    </>
+  )
+}
