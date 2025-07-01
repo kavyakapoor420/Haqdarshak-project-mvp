@@ -35,7 +35,7 @@ export const dummyQuestions: Question[] = [
   },
   {
     id: "2",
-    title: "How to apply for widow pension scheme in rural Maharashtra?",
+    title: "xyz scheme in delhi hello world ?",
     body: "I'm helping a widow apply for the pension scheme. She has Aadhar and Ration card but no bank passbook. Is it mandatory? Also, what if her application gets rejected?",
     tags: ["pension", "maharashtra", "documents", "grievance"],
     votes: 15,

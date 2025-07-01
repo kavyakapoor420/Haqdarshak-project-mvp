@@ -529,7 +529,7 @@ const AuthPage: React.FC = () => {
               </button>
             </form>
             {/* Switch login/signup */}
-            <div className="text-center mt-7">
+            <div className="text-center mt-4 ">
               <p className="text-sm text-gray-500">
                 {isLogin ? "Don't have an account?" : "Already have an account?"}
                 <button

@@ -80,28 +80,28 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
       {/* Tabs */}
       <Tabs defaultValue="editor" className="w-full">
         <TabsList className="grid w-full grid-cols-8 bg-gray-800 border-b border-gray-600 rounded-none h-auto p-0">
-          <TabsTrigger value="links" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="links" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             Links
           </TabsTrigger>
-          <TabsTrigger value="images" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="images" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             Images
           </TabsTrigger>
-          <TabsTrigger value="styling" className="text-xs py-2 data-[state=active]:bg-gray-700">
-            Styling/Headers
+          <TabsTrigger value="styling" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
+            Styling
           </TabsTrigger>
-          <TabsTrigger value="lists" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="lists" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             Lists
           </TabsTrigger>
-          <TabsTrigger value="blockquotes" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="blockquotes" className="text-xs text-white py-2 data-[state=active]:bg-gray-700">
             Blockquotes
           </TabsTrigger>
-          <TabsTrigger value="code" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="code" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             Code
           </TabsTrigger>
-          <TabsTrigger value="html" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="html" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             HTML
           </TabsTrigger>
-          <TabsTrigger value="tables" className="text-xs py-2 data-[state=active]:bg-gray-700">
+          <TabsTrigger value="tables" className="text-xs py-2 text-white data-[state=active]:bg-gray-700">
             Tables
           </TabsTrigger>
         </TabsList>
@@ -132,20 +132,6 @@ export function RichTextEditor({ value, onChange, placeholder }: RichTextEditorP
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between p-2 bg-gray-800 border-t border-gray-600 text-xs text-gray-400">
-        <div className="flex items-center gap-4">
-          <span>
-            ```<code className="bg-gray-700 px-1 rounded">code</code>```
-          </span>
-          <span>
-            **<code className="bg-gray-700 px-1 rounded">bold</code>**
-          </span>
-          <span>
-            *<code className="bg-gray-700 px-1 rounded">italic</code>*
-          </span>
-          <span>&gt;quote</span>
-        </div>
-      </div>
     </div>
   )
 }
