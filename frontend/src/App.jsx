@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div>
-       <Page/>
+      <Page/>
     </div>
     // <BrowserRouter>
     // <LanguageProvider>

@@ -417,7 +417,7 @@
 
 
 
-import Logo from '../../assets/logo.png';
+// import Logo from '../../assets/logo.png';
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle, FaBars, FaTimes, FaChevronDown, FaSearch } from "react-icons/fa";
@@ -464,7 +464,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLoggedIn = false }) => {
           {/* Logo Section - Left */}
           <div className="flex items-center flex-shrink-0 bg-white h-12 rounded-2xl p-2">
             <Link to="/" className="group flex items-center hover:scale-105 transition-transform duration-200">
-              <img src={Logo} alt="Haqdarshak Logo" className="h-12 w-auto m-4 max-w-[180px] object-contain group-hover:brightness-110 transition-all duration-200 filter drop-shadow-md group-hover:drop-shadow-lg" />
+              <img src='' alt="Haqdarshak Logo" className="h-12 w-auto m-4 max-w-[180px] object-contain group-hover:brightness-110 transition-all duration-200 filter drop-shadow-md group-hover:drop-shadow-lg" />
             </Link>
           </div>
 
